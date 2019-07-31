@@ -47,65 +47,50 @@ $Admin.leftSideBar = {
     setMenuHeight: function (firstTime) {
         var height = ($(window).height() - ($('.legal').outerHeight() + $('.user-info').outerHeight() + $('.navbar').innerHeight()));
         var configs = $Admin.options.leftSideBar;
-        var $menuScroll = $('#slimScrollOfMenu');
+        var $menuScroll = $('.list');
 
         if (!firstTime) {
-            $menuScroll.slimscroll({
-                destroy: true
+            $menuScroll.slimScroll({
+                destroy: true,
             });
         }
-
-        $menuScroll.slimscroll({
+        $menuScroll.slimScroll({
             height: height + "px",
-            color: configs.scrollColor,
+            color: $Admin.options.colors.teal,
             size: configs.scrollWidth,
             borderRadius: configs.scrollBorderRadius,
             railBorderRadius: configs.scrollRailBorderRadius
         });
     },
 
-    closeSideBar: function () {
-        $leftSideBar.addClass('sidebar-closed');
-        $leftSideBar.css('left', '-999px');
-    },
-    openSideBar: function () {
-        $leftSideBar.removeClass('sidebar-closed');
-        $leftSideBar.css('left', '0');
-    },
     checkWindowResize: function () {
         var $body = $('body');
         var width = $body.width();
         var $openCloseBar = $('.navbar .navbar-header .bars');
-        if (width <= $Admin.options.leftSideBar.breakpointWidth) {
 
-            if (!$leftSideBar.hasClass('sidebar-closed')) {
-                // $leftSideBar.addClass('sidebar-closed');
-                // $leftSideBar.css('left', '-300px');
-                $(this).closeSideBar();
-            }
+        if (width <= $Admin.options.leftSideBar.breakpointWidth) {
+            $body.addClass('ls-closed');
             $openCloseBar.show();
         }
         else {
-            // $leftSideBar.removeClass('sidebar-closed');
-            // $leftSideBar.css('left', '0');
-            $(this).openSideBar();
+            $body.removeClass('ls-closed');
+            if($body.hasClass('ls-opened')) $body.removeClass('ls-opened');
             $openCloseBar.hide();
-        }        
-        $openCloseBar.click(
-            function () {
-                if ($leftSideBar.hasClass('sidebar-closed')) {
-                    $leftSideBar.removeClass('sidebar-closed');
-                    $leftSideBar.css('left', '0');
-                }
-                else {
-                    $leftSideBar.addClass('sidebar-closed');
-                    $leftSideBar.css('left', '-300px');
-                }
-            }
-        );
+        }
     },
 };
 
+$Admin.navbar = {
+    active: function () {
+        var $body = $('body');
+        var $openCloseBar = $('.navbar .navbar-header .bars');
+        $openCloseBar.click(
+            function () {
+                $body.toggleClass('ls-opened');
+            }
+        );
+    }
+}
 
 var $searchBar = $('.search-bar');
 $Admin.search = {
@@ -115,13 +100,19 @@ $Admin.search = {
             $searchBar.css('display', 'inline-flex');
             $searchBar.find('input[type="text"]').focus();
         });
-
         $('.close-search').click(() => {
             $searchBar.slideUp(200);
             $searchBar.find('input[type="text"]').val('');
+        });
+        $searchBar.find('input[type="text"]').on('keyup', function (e) {
+            if (e.keyCode == 27) {
+                $searchBar.slideUp(200);
+                $searchBar.find('input[type="text"]').val('');
+            }
         });
     }
 }
 
 $Admin.leftSideBar.active();
 $Admin.search.active();
+$Admin.navbar.active();
