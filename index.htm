@@ -32,6 +32,8 @@
 
 	<script src="assets/js/bootstrap-datepicker.min.js" type='text/javascript'></script>
 
+	<link rel="stylesheet" href="assets/css/waves.css" rel='stylesheet' type='text/css'>
+
 	<link rel="stylesheet" href="assets/css/animate.css" rel='stylesheet' type='text/css'>
 
 	<link rel="stylesheet" href="assets/css/style.css" rel='stylesheet' type='text/css'>
@@ -40,6 +42,7 @@
 
 
 <body>
+	<div class="overlay"></div>
 	<div class="search-bar">
 		<div class="search-icon">
 			<i class="material-icons">search</i>
@@ -164,13 +167,9 @@
 
 			<div class="tab-content">
 				<div id="skins" class="skins tab-pane fade in active">
-					<ul class="skin-list">
-						
-					</ul>
+					<ul class="skin-list"></ul>
 				</div>
 				<div id="settings" class="tab-pane fade">
-					<h3>SETTINGS</h3>
-					<p>Some content in menu 1.</p>
 				</div>
 			</div>
 		</aside>
@@ -378,13 +377,13 @@
 									</div>
 								</div>
 								<!-- #New Client Modal -->
-								<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-									<button class="btn btn-md btn-danger" data-toggle="modal" data-target="#newPj">
+								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+									<button class="btn btn-lg btn-danger" data-toggle="modal" data-target="#newPj">
 										<span><i class="fas fa-plus"></i> New Projects</span>
 									</button>
 								</div>
 								<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-									<div class="form-group">
+									<div class="form-group form-group-lg">
 										<select class="selectpicker form-control">
 											<option value="" disabled></option>
 											<option value="" selected>Active Projects (4)</option>
@@ -393,8 +392,8 @@
 										</select>
 									</div>
 								</div>
-								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-									<div class="input-group">
+								<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+									<div class="input-group input-group-lg">
 										<span class="input-group-addon"><i
 												class="glyphicon glyphicon-search"></i></span>
 										<input type="text" class="form-control" name="content-search"
@@ -544,9 +543,17 @@
 
 	<script src="https://kit.fontawesome.com/a0e1972579.js"></script>
 
+	<script src="assets/js/waves.js"></script>
+
 	<script type="text/javascript" src="assets/js/jquery.slimscroll.min.js"></script>
 
 	<script src="assets/js/custom.js"></script>
+
+	<script>
+		Waves.attach('button');
+		Waves.attach('.dropdown-menu>li>a');
+		Waves.init();
+	</script>
 </body>
 
 </html>

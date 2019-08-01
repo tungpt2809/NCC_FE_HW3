@@ -43,6 +43,12 @@ $Admin.leftSideBar = {
             $_this.checkWindowResize();
             $_this.setMenuHeight(false);
         });
+
+        $('.menu .list li a').click(function () {
+            $('.menu .list li.active').removeClass('active');
+            $(this).parent().addClass("active");
+        });
+
     },
     setMenuHeight: function (firstTime) {
         var leftHeight = ($(window).height() - ($('.legal').outerHeight() + $('.user-info').outerHeight() + $('.navbar').innerHeight()));
@@ -73,13 +79,16 @@ $Admin.leftSideBar = {
             borderRadius: configs.scrollBorderRadius,
             railBorderRadius: configs.scrollRailBorderRadius
         })
+        //Set Waves
+        Waves.attach('.menu .list a', ['waves-block']);
+        Waves.init();
     },
 
     checkWindowResize: function () {
         var $body = $('body');
         var width = $body.width();
         var $openCloseBar = $('.navbar .navbar-header .bars');
-
+        
         if (width <= $Admin.options.sideBar.breakpointWidth) {
             $body.addClass('ls-closed');
             $openCloseBar.show();
@@ -116,22 +125,27 @@ $Admin.rightSideBar = {
             }
         );
         $_this.renderSkinList();
+
+        $('.skin-list li').click(function () {
+            $('.skin-list li.active').removeClass('active');
+            $(this).addClass("active");
+        });
     },
     renderSkinList: function () {
         var $colors = $Admin.options.colors;
         var $skinList = $('.right-side-bar .skins .skin-list');
         var $html = '';
-        
 
         $.each($colors, function ($key, $value) {
-            $html += '<li>';
-            $html += '<div class= "' + $key + '" style="background-color:'+ $value +'"></div>';
+            $html += '<li class="">';
+            $html += '<div class= "' + $key + '" style="background-color:' + $value + '"></div>';
             $html += '<span>' + $key + '</span>';
+            $html += '<i class="material-icons">check</i>';
             $html += '</li>';
-        });        
+        });
 
         $skinList.html($html);
-    }
+    },
 }
 
 var $searchBar = $('.search-bar');
