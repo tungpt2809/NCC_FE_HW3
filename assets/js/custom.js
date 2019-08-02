@@ -20,8 +20,7 @@ $Admin.options = {
         brown: '#795548',
         grey: '#9E9E9E',
         blueGrey: '#607D8B',
-        black: '#000000',
-        white: '#ffffff'
+        black: '#000000'
     },
     sideBar: {
         scrollColor: 'rgba(0,0,0,0.5)',
@@ -32,7 +31,7 @@ $Admin.options = {
     },
 };
 
-var $leftSideBar = $('#left-side-bar');
+let $leftSideBar = $('#left-side-bar');
 $Admin.leftSideBar = {
     active: function () {
         $_this = this;
@@ -51,8 +50,8 @@ $Admin.leftSideBar = {
 
     },
     setMenuHeight: function (firstTime) {
-        var leftHeight = ($(window).height() - ($('.legal').outerHeight() + $('.user-info').outerHeight() + $('.navbar').innerHeight()));
-        var rightHeight = $(window).height() - 70;
+        var leftHeight = ($(window).height() - $('.legal').outerHeight() - $('.user-info').outerHeight() - $('.navbar').innerHeight());
+        var rightHeight = ($(window).height() - $('.right-side-bar .nav-tabs').outerHeight() - $('.navbar').innerHeight() - 20);
         var configs = $Admin.options.sideBar;
         var $menuScroll = $('.list');
         var $skinList = $('.right-side-bar .skins .skin-list');
@@ -152,12 +151,11 @@ var $searchBar = $('.search-bar');
 $Admin.search = {
     active: function () {
         $('.js-search').click(() => {
-            $searchBar.slideDown(300);
-            $searchBar.css('display', 'inline-flex');
+            $searchBar.addClass('open');
             $searchBar.find('input[type="text"]').focus();
         });
         $('.close-search').click(() => {
-            $searchBar.slideUp(300);
+            $searchBar.removeClass('open');
             $searchBar.find('input[type="text"]').val('');
         });
         $searchBar.find('input[type="text"]').on('keyup', function (e) {
