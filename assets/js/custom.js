@@ -50,11 +50,11 @@ $Admin.leftSideBar = {
 
     },
     setMenuHeight: function (firstTime) {
-        var leftHeight = ($(window).height() - $('.legal').outerHeight() - $('.user-info').outerHeight() - $('.navbar').innerHeight());
-        var rightHeight = ($(window).height() - $('.right-side-bar .nav-tabs').outerHeight() - $('.navbar').innerHeight() - 20);
-        var configs = $Admin.options.sideBar;
-        var $menuScroll = $('.list');
-        var $skinList = $('.right-side-bar .skins .skin-list');
+        let leftHeight = ($(window).height() - $('.legal').outerHeight() - $('.user-info').outerHeight() - $('.navbar').innerHeight());
+        let rightHeight = ($(window).height() - $('.right-side-bar .nav-tabs').outerHeight() - $('.navbar').innerHeight() - 20);
+        let configs = $Admin.options.sideBar;
+        let $menuScroll = $('.list');
+        let $skinList = $('.right-side-bar .skins .skin-list');
 
         if (!firstTime) {
             $menuScroll.slimScroll({
@@ -84,10 +84,10 @@ $Admin.leftSideBar = {
     },
 
     checkWindowResize: function () {
-        var $body = $('body');
-        var width = $body.width();
-        var $openCloseBar = $('.navbar .navbar-header .bars');
-        
+        let $body = $('body');
+        let width = $body.width();
+        let $openCloseBar = $('.navbar .navbar-header .bars');
+
         if (width <= $Admin.options.sideBar.breakpointWidth) {
             $body.addClass('ls-closed');
             $openCloseBar.show();
@@ -102,8 +102,8 @@ $Admin.leftSideBar = {
 
 $Admin.navbar = {
     active: function () {
-        var $body = $('body');
-        var $openCloseBar = $('.navbar .navbar-header .bars');
+        let $body = $('body');
+        let $openCloseBar = $('.navbar .navbar-header .bars');
 
         $openCloseBar.click(
             function () {
@@ -115,8 +115,8 @@ $Admin.navbar = {
 
 $Admin.rightSideBar = {
     active: function () {
-        var $_this = this;
-        var $rightSideBar = $('#right-side-bar');
+        let $_this = this;
+        let $rightSideBar = $('#right-side-bar');
 
         $('.js-right-sidebar').click(
             function () {
@@ -124,6 +124,7 @@ $Admin.rightSideBar = {
             }
         );
         $_this.renderSkinList();
+        $_this.changeTheme();
 
         $('.skin-list li').click(function () {
             $('.skin-list li.active').removeClass('active');
@@ -131,13 +132,13 @@ $Admin.rightSideBar = {
         });
     },
     renderSkinList: function () {
-        var $colors = $Admin.options.colors;
-        var $skinList = $('.right-side-bar .skins .skin-list');
-        var $html = '';
+        let $colors = $Admin.options.colors;
+        let $skinList = $('.right-side-bar .skins .skin-list');
+        let $html = '';
 
         $.each($colors, function ($key, $value) {
-            $html += '<li class="">';
-            $html += '<div class= "' + $key + '" style="background-color:' + $value + '"></div>';
+            $html += '<li>';
+            $html += '<div class= "' + $key + '"></div>';
             $html += '<span>' + $key + '</span>';
             $html += '<i class="material-icons">check</i>';
             $html += '</li>';
@@ -145,9 +146,21 @@ $Admin.rightSideBar = {
 
         $skinList.html($html);
     },
+    changeTheme: function () {
+        let $colors = $Admin.options.colors;
+        $.each($colors, function ($key, $value) {
+            
+            $('.' + $key).parent().click(function () {
+                $('body').get(0).style.setProperty('--nav-bg-color', $value);
+                $('body').get(0).style.setProperty('--general-bg-color', $value);
+                $('body').get(0).style.setProperty('--menu-item-active-color', $value);
+                
+            });
+        });
+    }
 }
 
-var $searchBar = $('.search-bar');
+let $searchBar = $('.search-bar');
 $Admin.search = {
     active: function () {
         $('.js-search').click(() => {
